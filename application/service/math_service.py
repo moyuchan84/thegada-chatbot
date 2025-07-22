@@ -1,6 +1,6 @@
 import random
 from domain.model.response import (
-    Response, SkillTemplate, Component, BasicCard, Thumbnail, QuickReply, ContextControl, ContextValue
+    Response, SimpleText, SkillTemplate, Component, BasicCard, Thumbnail, QuickReply, ContextControl, ContextValue
 )
 
 class MathService:
@@ -23,6 +23,28 @@ class MathService:
                                 QuickReply(label="포기", action="message", messageText="포기")
                             ]
                         )
+                    )
+                ]
+            ),
+            context=ContextControl(
+                values=[
+                    ContextValue(key="answer", value=answer)
+                ]
+            )
+        )
+        return response
+
+    def generate_question_simple_text(self) -> Response:
+        num1 = random.randint(10, 99)
+        num2 = random.randint(10, 99)
+        question = f"{num1} + {num2} = ?"
+        answer = str(num1 + num2)
+
+        response = Response(
+            template=SkillTemplate(
+                outputs=[
+                    Component(
+                        simpleText=SimpleText(text=question)
                     )
                 ]
             ),

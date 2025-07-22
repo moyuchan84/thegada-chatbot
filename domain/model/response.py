@@ -1,13 +1,16 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 
+class SimpleText(BaseModel):
+    text: str
+
 class Thumbnail(BaseModel):
     imageUrl: str
 
 class BasicCard(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
-    thumbnail: Thumbnail
+    thumbnail: Optional[Thumbnail] = None
 
 class QuickReply(BaseModel):
     label: str
@@ -15,7 +18,12 @@ class QuickReply(BaseModel):
     messageText: str
 
 class Component(BaseModel):
-    basicCard: BasicCard
+    simpleText: Optional[SimpleText] = None
+    basicCard: Optional[BasicCard] = None
+
+class SkillTemplate(BaseModel):
+    outputs: List[Component]
+    quickReplies: Optional[List[QuickReply]] = None
 
 class ContextValue(BaseModel):
     key: str
@@ -23,11 +31,7 @@ class ContextValue(BaseModel):
 
 class ContextControl(BaseModel):
     values: List[ContextValue]
-    ttl: int = 10 # Time To Live in minutes
-
-class SkillTemplate(BaseModel):
-    outputs: List[Component]
-    quickReplies: Optional[List[QuickReply]] = None
+    ttl: int = 10
 
 class Response(BaseModel):
     version: str = "2.0"
