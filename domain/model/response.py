@@ -19,7 +19,7 @@ class QuickReply(BaseModel):
 
 class Component(BaseModel):
     simpleText: Optional[SimpleText] = None
-    basicCard: Optional[BasicCard] = None
+    #basicCard: Optional[BasicCard] = None
 
 class SkillTemplate(BaseModel):
     outputs: List[Component]
