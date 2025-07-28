@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 3100
 
-CMD ["gunicorn", "--bind", "0.0.0.0:3000", "main:app", "--worker-class", "uvicorn.workers.UvicornWorker"]
+CMD ["uvicorn", "main:app", "--reload"]
